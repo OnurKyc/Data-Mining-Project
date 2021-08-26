@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><process version="9.9.000">
+  <context>
+    <input/>
+    <output/>
+    <macros/>
+  </context>
+  <operator activated="true" class="process" compatibility="9.9.000" expanded="true" name="Process">
+    <parameter key="logverbosity" value="init"/>
+    <parameter key="random_seed" value="2001"/>
+    <parameter key="send_mail" value="never"/>
+    <parameter key="notification_email" value=""/>
+    <parameter key="process_duration_for_mail" value="30"/>
+    <parameter key="encoding" value="SYSTEM"/>
+    <process expanded="true">
+      <operator activated="true" class="retrieve" compatibility="9.9.000" expanded="true" height="68" name="Retrieve Bank_Data_Additional_Practice1_Balanced_Train" width="90" x="246" y="136">
+        <parameter key="repository_entry" value="//Local Repository/Bank_Data_Additional_Practice1_Balanced_Train"/>
+      </operator>
+      <operator activated="true" class="tableau_table_writer:write_tableau" compatibility="9.7.000" expanded="true" height="82" name="Write Tableau Extract" width="90" x="380" y="136">
+        <parameter key="output_file" value="C:/Users/abhay/Documents/results.hyper"/>
+        <parameter key="append" value="false"/>
+      </operator>
+      <operator activated="true" class="tableau_table_writer:upload_tableau" compatibility="9.7.000" expanded="true" height="82" name="Upload Tableau Data Source" width="90" x="581" y="136">
+        <parameter key="mode" value="create"/>
+      </operator>
+      <connect from_op="Retrieve Bank_Data_Additional_Practice1_Balanced_Train" from_port="output" to_op="Write Tableau Extract" to_port="input"/>
+      <connect from_op="Write Tableau Extract" from_port="through" to_op="Upload Tableau Data Source" to_port="file"/>
+      <connect from_op="Upload Tableau Data Source" from_port="through" to_port="result 1"/>
+      <portSpacing port="source_input 1" spacing="0"/>
+      <portSpacing port="sink_result 1" spacing="0"/>
+      <portSpacing port="sink_result 2" spacing="0"/>
+    </process>
+  </operator>
+</process>
